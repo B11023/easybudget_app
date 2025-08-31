@@ -1,0 +1,11 @@
+# easybudget_app
+
+assets 出處:
+    banana:
+        <a href="https://www.flaticon.com/free-icons/banana" title="banana icons">Banana icons created by juicy_fish - Flaticon</a>
+
+    saugy:
+        https://pbs.twimg.com/media/GxNYTMNbUAAjays.jpg:large
+
+link 出處:
+    https://www.youtube.com/watch?v=h9VITcI0iYI
