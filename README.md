@@ -1,5 +1,18 @@
 # easybudget_app
 
+記帳sideproject
+練習用
+
+接下來的目標：
+google登入
+api連接
+state mangement
+
+
+
+
+----------------
+
 assets 出處:
     banana:
         <a href="https://www.flaticon.com/free-icons/banana" title="banana icons">Banana icons created by juicy_fish - Flaticon</a>
