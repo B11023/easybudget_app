@@ -7,9 +7,9 @@ class SetCard extends StatelessWidget {
   final int index;
 
   const SetCard({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

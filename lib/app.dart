@@ -1,7 +1,8 @@
-import 'package:easybudget_app/features/analyze/pages/analyze_page.dart';
-import 'package:easybudget_app/features/balance/pages/balance_page.dart';
-import 'package:easybudget_app/features/home/pages/home_page.dart';
-import 'package:easybudget_app/features/set/pages/set_page.dart';
+import 'package:easybudget_app/features/analyze/presentation/analyze_page.dart';
+import 'package:easybudget_app/features/balance/presentation/balance_page.dart';
+import 'package:easybudget_app/features/home/presentation/home_page.dart';
+import 'package:easybudget_app/features/login/presentation/login_page.dart';
+import 'package:easybudget_app/features/set/presentation/set_page.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -11,7 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/login',
        onGenerateRoute: (RouteSettings settings) {
         late Widget page;
         switch (settings.name) {
@@ -26,6 +27,9 @@ class App extends StatelessWidget {
             break;
           case '/setting':
             page = const SetPage();
+            break;
+          case '/login':
+            page = const LogInPage();
             break;
           default:
             page = const HomePage();

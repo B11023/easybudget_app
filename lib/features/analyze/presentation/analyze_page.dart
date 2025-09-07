@@ -4,8 +4,8 @@ import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
-import 'package:easybudget_app/features/analyze/widgets/transaction_pie_charts.dart';
-import 'package:easybudget_app/features/analyze/widgets/transaction_list.dart';
+import 'package:easybudget_app/features/analyze/presentation/transaction_pie_charts.dart';
+import 'package:easybudget_app/features/analyze/presentation/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 class AnalyzePage extends StatefulWidget {
@@ -91,8 +91,8 @@ class _AnalyzePageState extends State<AnalyzePage> {
                   )
                 ],
               ),
-              TransactionPieChart(),
-              Divider(
+              const TransactionPieChart(),
+              const Divider(
                 color: Colors.black,
                 thickness: 2,
               ),

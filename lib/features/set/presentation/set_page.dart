@@ -1,7 +1,7 @@
 
 import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
-import 'package:easybudget_app/features/set/widgets/set_card.dart';
+import 'package:easybudget_app/features/set/presentation/set_card.dart';
 import 'package:flutter/material.dart';
 
 class SetPage extends StatelessWidget {

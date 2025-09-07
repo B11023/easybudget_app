@@ -20,7 +20,7 @@ class PieChart2State extends State {
         aspectRatio: 1,
         child: Stack(
           children: [
-            Center(
+            const Center(
               child: Text(
                 '總支出\nNT \$ 123432',
                 textAlign: TextAlign.center,

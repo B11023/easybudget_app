@@ -7,16 +7,16 @@ class TransactionList extends StatelessWidget {
   final String amount;
 
   const TransactionList({
-    Key? key,
+    super.key,
     required this.icon,
     required this.label,
     required this.percent,
     required this.amount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

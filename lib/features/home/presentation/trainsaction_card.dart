@@ -9,13 +9,13 @@ class TrainsactionCard extends StatelessWidget {
   final List<String> trailing; 
 
   const TrainsactionCard({
-    Key? key,
+    super.key,
     required this.label,
     required this.itemCount,
     required this.icons,
     required this.titles,
     required this.trailing,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

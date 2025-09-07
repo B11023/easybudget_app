@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/common/theme/app_colors.dart';
-import 'package:easybudget_app/features/balance/widgets/balanceDialog.dart';
+import 'package:easybudget_app/features/balance/presentation/balance_dialog.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:flutter/material.dart';
 

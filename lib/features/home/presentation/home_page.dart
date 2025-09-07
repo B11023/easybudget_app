@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/common/theme/app_icon.dart';
-import 'package:easybudget_app/features/home/widgets/add_transaction.dart';
+import 'package:easybudget_app/features/home/presentation/add_transaction.dart';
 import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
-import 'package:easybudget_app/features/home/widgets/trainsaction_card.dart';
+import 'package:easybudget_app/features/home/presentation/trainsaction_card.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -112,8 +112,8 @@ class _HomePageState extends State<HomePage> {
                     label: "08/31",
                     itemCount: 3,
                     icons: [appIcon(1), appIcon(2), appIcon(3)],
-                    titles: ["搬家", "ECO", "交通"],
-                    trailing: ["\$100", "\$200", "\$300"],
+                    titles: const ["搬家", "ECO", "交通"],
+                    trailing: const ["\$100", "\$200", "\$300"],
                   );
                 },
               ),

@@ -62,7 +62,7 @@ class BalanceDialog extends StatelessWidget {
                       right: BorderSide.none,
                     ),
                   ),
-                  gridData: FlGridData(
+                  gridData: const FlGridData(
                     show: true,
                     drawVerticalLine: false,
                     drawHorizontalLine: true,
@@ -95,10 +95,10 @@ class BalanceDialog extends StatelessWidget {
                         },
                       ),
                     ),
-                    rightTitles: AxisTitles(
+                    rightTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
-                    topTitles: AxisTitles(
+                    topTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
                   ),
@@ -106,7 +106,7 @@ class BalanceDialog extends StatelessWidget {
                   lineBarsData: [
                     LineChartBarData(
                       barWidth: 3,
-                      dotData: FlDotData(show: true),
+                      dotData: const FlDotData(show: true),
                       spots: spots,
                     ),
                   ],

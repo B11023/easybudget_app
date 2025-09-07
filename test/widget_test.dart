@@ -7,10 +7,15 @@
 
 import 'package:easybudget_app/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    setUpAll(() async {
+      await dotenv.load(fileName: ".env"); 
+    });
+
     // Build our app and trigger a frame.
     await tester.pumpWidget(const App());
 
