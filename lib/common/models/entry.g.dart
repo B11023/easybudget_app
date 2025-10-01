@@ -6,18 +6,17 @@ part of 'entry.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EntryImpl _$$EntryImplFromJson(Map<String, dynamic> json) => _$EntryImpl(
-      entryId: (json['entryId'] as num).toInt(),
-      userId: (json['userId'] as num).toInt(),
+_Entry _$EntryFromJson(Map<String, dynamic> json) => _Entry(
+      entryId: (json['entryId'] as num?)?.toInt(),
+      userId: (json['userId'] as num?)?.toInt(),
       category: json['category'] as String,
       entryType: json['entryType'] as String,
       amount: (json['amount'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      note: json['note'] as String,
+      note: json['note'] as String?,
     );
 
-Map<String, dynamic> _$$EntryImplToJson(_$EntryImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$EntryToJson(_Entry instance) => <String, dynamic>{
       'entryId': instance.entryId,
       'userId': instance.userId,
       'category': instance.category,

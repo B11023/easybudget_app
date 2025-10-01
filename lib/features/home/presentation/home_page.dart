@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:easybudget_app/common/theme/app_icon.dart';
-import 'package:easybudget_app/features/home/presentation/add_transaction.dart';
+import 'package:easybudget_app/features/home/presentation/widget/add_transaction.dart';
 import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
-import 'package:easybudget_app/features/home/presentation/trainsaction_card.dart';
+import 'package:easybudget_app/features/home/presentation/widget/trainsaction_card.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollListener() {
-    //偵測滾動位置
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
@@ -45,6 +43,7 @@ class _HomePageState extends State<HomePage> {
       currentIndex: 0,
       body: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 40,
           title: const Center(
               child: SizedBox(
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => const AddTransactionWidget());
+                builder: (context) => AddTransactionWidget());
           },
           foregroundColor: AppColors.lightFont,
           backgroundColor: AppColors.main,
@@ -103,20 +102,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: 100,
-                itemBuilder: (context, index) {
-                  return TrainsactionCard(
-                    label: "08/31",
-                    itemCount: 3,
-                    icons: [appIcon(1), appIcon(2), appIcon(3)],
-                    titles: const ["搬家", "ECO", "交通"],
-                    trailing: const ["\$100", "\$200", "\$300"],
-                  );
-                },
-              ),
+            const Expanded(
+              child: TrainsactionCard(),
             ),
           ],
         ),

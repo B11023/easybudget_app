@@ -18,6 +18,7 @@ class _LogInPageState extends State<LogInPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text(
             'EasyBudget',

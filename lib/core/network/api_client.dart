@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:easybudget_app/common/config/env_config.dart';
+import 'package:easybudget_app/common/models/entry.dart';
 
 class ApiClient {
   static late final Dio _dio;
@@ -17,7 +18,7 @@ class ApiClient {
     ));
   }
 
-  static void setBearer(String idToken) {
+  static Future<void> setBearer(String idToken) async {
     if (_interceptorAdded) return;
     _dio.interceptors.add(
       InterceptorsWrapper(onRequest: (options, handler) {
@@ -25,39 +26,39 @@ class ApiClient {
         return handler.next(options);
       }),
     );
+
     _interceptorAdded = true;
   }
 
-  /// 若你的 /api/entries 回的是「陣列」，回傳 List<dynamic>
-  static Future<List<dynamic>> fetchEntries() async {
+  static Future<List<Entry>> fetchEntries() async {
+    final resp = await _dio.get('/api/entries');
+    log('status=${resp.statusCode}');
+
+    if (resp.statusCode == 200) {
+      final entries =
+          (resp.data as List).map((e) => Entry.fromJson(e)).toList();
+
+      log('list entries=$entries');
+      return entries;
+    }
+    throw Exception('HTTP ${resp.statusCode}: ${resp.data}');
+  }
+
+  static Future<Entry> createEntry(Entry entry) async {
     try {
-      final resp = await _dio.get('/api/entries');
-      log('status=${resp.statusCode}');
-      if (resp.statusCode == 200) {
-        // Dio 已自動解析 JSON；entries 多半是 List
-        final data = resp.data;
-        if (data is List) return data;
-        // 若後端回的是物件包陣列，可按需調整 key
-        if (data is Map && data['entries'] is List) {
-          return data['entries'] as List;
-        }
-        throw Exception('Unexpected JSON shape: ${resp.data.runtimeType}');
+      final resp = await _dio.post(
+        '/api/entries',
+        data: entry.toJson(),
+      );
+
+      if (resp.statusCode == 200 || resp.statusCode == 201) {
+        log('statusCode:200');
+        return Entry.fromJson(resp.data as Map<String, dynamic>);
       } else {
         throw Exception('HTTP ${resp.statusCode}: ${resp.data}');
       }
     } on DioException catch (e) {
-      log('Dio error: ${e.message}', error: e, stackTrace: e.stackTrace);
-      rethrow;
-    }
-  }
-
-  /// 若你有需要打根目錄 "/"（回 Map）
-  static Future<Map<String, dynamic>> fetchRoot() async {
-    final resp = await _dio.get('/');
-    if (resp.statusCode == 200) {
-      return Map<String, dynamic>.from(resp.data);
-    } else {
-      throw Exception('HTTP ${resp.statusCode}: ${resp.data}');
+      throw Exception('Dio error: ${e.response?.data ?? e.message}');
     }
   }
 }

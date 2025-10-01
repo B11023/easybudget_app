@@ -4,10 +4,20 @@
 練習用
 
 接下來的目標：
-- google登入(完成)
-- api連接(完成)
-- json檔案處理
-- state mangement
+- google 登入(完成)
+- api 連接(完成)
+- json 檔案處理(完成)
+- state mangement(待處理)
+- home page data點擊並修改
+- blance page 存錢筒修改
+- analyze page 
+- set page 顏色修改
+
+
+---  
+&emsp;資料夾架構  
+- Feature-based  
+- DDD
 
 ---
 

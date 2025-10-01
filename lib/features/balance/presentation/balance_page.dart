@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/features/balance/presentation/balance_dialog.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BalancePage extends StatefulWidget {
   const BalancePage({super.key});
@@ -16,7 +18,7 @@ class _BalancePageState extends State<BalancePage> {
   bool _hideDoller = true;
   @override
   Widget build(BuildContext context) {
-    var doller = '123';
+    dynamic doller = context.watch<EntryProvider>().countSum;
     return BaseScaffold(
         currentIndex: 1,
         body: Scaffold(
@@ -99,8 +101,8 @@ class _BalancePageState extends State<BalancePage> {
                           ),
                           Text(
                             '   存錢筒',
-                            style: TextStyle(
-                                color: AppColors.font, fontSize: 20),
+                            style:
+                                TextStyle(color: AppColors.font, fontSize: 20),
                           ),
                         ],
                       ),
