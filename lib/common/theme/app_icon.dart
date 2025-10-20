@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 IconData appIcon(dynamic index) {
   switch (index) {
-    case 'Salary':
+    case 'hambuger':
     case '0':
       return Icons.lunch_dining;
     case 'hardware':
@@ -38,7 +38,24 @@ IconData appIcon(dynamic index) {
     case 'gas':
     case '11':
       return Icons.local_gas_station;
+    case '其他':
+      return Icons.more_horiz;
     default:
       return Icons.question_mark;
   }
 }
+
+// Map<String, String> iconMap = {
+//   '0': '飲食',
+//   '1': '工具',
+//   '2': '環保',
+//   '3': '交通工具',
+//   '4': '機車',
+//   '5': '遊戲',
+//   '6': '禮物',
+//   '7': '水電費',
+//   '8': '娛樂',
+//   '9': '腳踏車',
+//   '10': 'paypal',
+//   '11': 'gas',
+// };

@@ -41,12 +41,22 @@ class EntryQueryService {
   }
 
   /// 當月依「類別」加總
-  static Map<String, double> sumCurrentMonthByCategory(List<Entry> entries,
+  static Map<String, double> sumCurrentMonthByCategory(
+      List<Entry> entries, bool isSelected,
       {DateTime? now}) {
     final monthEntries = entriesInCurrentMonth(entries, now: now);
     final map = <String, double>{};
+
+    String type = isSelected ? 'expend' : 'income';
+
     for (final e in monthEntries) {
-      map.update(e.category, (v) => v + e.amount);
+      if (e.entryType != type) continue;
+
+      map.update(
+        e.category.trim(),
+        (v) => v + e.amount.toDouble(),
+        ifAbsent: () => e.amount.toDouble(),
+      );
     }
     return map;
   }

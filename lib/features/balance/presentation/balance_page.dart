@@ -18,7 +18,7 @@ class _BalancePageState extends State<BalancePage> {
   bool _hideDoller = true;
   @override
   Widget build(BuildContext context) {
-    dynamic doller = context.watch<EntryProvider>().countSum;
+    dynamic doller = context.watch<EntryProvider>().totalBalance;
     return BaseScaffold(
         currentIndex: 1,
         body: Scaffold(

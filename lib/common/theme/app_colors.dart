@@ -14,4 +14,7 @@ class AppColors {
   static Color purple = const Color(0xFF9C27B0);
   static Color green = const Color(0xFF4CAF50);
   static Color red = const Color(0xFFF44336);
+  static Color grey = const Color(0xFF9E9E9E);
+
+  static List<Color> pieColor = [orange, green, blue, purple, grey];
 }

@@ -16,7 +16,6 @@ class AddTransactionWidget extends StatefulWidget {
 }
 
 class _AddTransactionWidget extends State<AddTransactionWidget> {
-  bool _isIncome = false;
   int? _selectionIndex;
   bool _selectionMainIcon = false;
 
@@ -32,7 +31,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final entryProvider = context.read<EntryProvider>();
+    final provider = context.watch<EntryProvider>();
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.95,
@@ -59,26 +58,12 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                   children: [
                     SelectCard(
                       text: '支出',
-                      isSelected: !_isIncome,
-                      onTap: () {
-                        setState(
-                          () {
-                            _isIncome = false;
-                          },
-                        );
-                      },
+                      type: true,
                     ),
                     const SizedBox(width: 45.0),
                     SelectCard(
                       text: '收入',
-                      isSelected: _isIncome,
-                      onTap: () {
-                        setState(
-                          () {
-                            _isIncome = true;
-                          },
-                        );
-                      },
+                      type: false,
                     ),
                   ],
                 ),
@@ -98,14 +83,14 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
 
                     final newEntry = Entry(
                       category: _selectionIndex.toString(),
-                      entryType: _isIncome ? 'income' : 'expend',
+                      entryType: provider.isSelected ? 'expend' : 'income',
                       amount: int.tryParse(_amountCtrl.text) ?? 0,
                       note: _noteCtrl.text,
                       createdAt: DateTime.now(),
                     );
 
                     try {
-                      entryProvider.addEntry(newEntry);
+                      provider.addEntry(newEntry);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('新增成功！:)')),
