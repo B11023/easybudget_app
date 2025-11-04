@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/features/home/presentation/widget/add_transaction.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/features/home/presentation/widget/trainsaction_card.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +56,8 @@ class _HomePageState extends State<HomePage> {
                 isScrollControlled: true,
                 builder: (context) => AddTransactionWidget());
           },
-          foregroundColor: AppColors.lightFont,
-          backgroundColor: AppColors.main,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           child: const Icon(Icons.add),
         ),
         body: Column(
@@ -74,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                       child: Divider(
                         thickness: 2,
                         height: 30,
-                        color: AppColors.font,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ),
@@ -86,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                         child: Icon(
                           Icons.menu_book,
                           size: 55,
-                          color: AppColors.font,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                       ),
                     ),
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     child: Divider(
                       thickness: 2,
                       height: 120,
-                      color: AppColors.font,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                   ),
                 ],

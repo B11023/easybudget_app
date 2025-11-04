@@ -1,4 +1,3 @@
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,7 +19,7 @@ class SetCard extends StatelessWidget {
     switch (index) {
       case 0:
         return Card(
-          color: AppColors.main,
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -32,7 +31,7 @@ class SetCard extends StatelessWidget {
             child: Center(
               child: Icon(
                 Icons.settings,
-                color: AppColors.font,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 size: MediaQuery.of(context).size.width * 0.15,
               ),
             ),
@@ -43,7 +42,7 @@ class SetCard extends StatelessWidget {
         //腸太郎
         return Card(
           clipBehavior: Clip.antiAlias,
-          color: AppColors.main,
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/features/analyze/models/category_stat_item.dart';
 import 'package:easybudget_app/features/analyze/presentation/service/category_stat_service.dart';

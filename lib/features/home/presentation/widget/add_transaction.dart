@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easybudget_app/common/models/entry.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
         height: MediaQuery.of(context).size.height * 0.95,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.invist,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
@@ -49,7 +48,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                 IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: AppColors.font,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -69,7 +68,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  color: AppColors.font,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                   onPressed: () async {
                     final text = _amountCtrl.text.trim();
                     final count = int.tryParse(text);
@@ -115,16 +114,16 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                     ),
                     Card(
                       color: _selectionMainIcon
-                          ? AppColors.lightMain
-                          : AppColors.disIcon,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
                       child: Padding(
                         padding: const EdgeInsets.all(20),
                         child: Icon(
                           appIcon((_selectionIndex ?? 5).toString()),
                           size: MediaQuery.of(context).size.width * 0.5,
                           color: _selectionMainIcon
-                              ? AppColors.font
-                              : AppColors.invist,
+                              ? Theme.of(context).colorScheme.onPrimaryContainer
+                              : Theme.of(context).colorScheme.surface,
                         ),
                       ),
                     ),
@@ -134,7 +133,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
             ),
             TextFormField(
               controller: _amountCtrl,
-              cursorColor: AppColors.main,
+              cursorColor: Theme.of(context).colorScheme.primary,
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(
@@ -160,7 +159,7 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
             // 備註輸入
             TextFormField(
               controller: _noteCtrl,
-              cursorColor: AppColors.main,
+              cursorColor: Theme.of(context).colorScheme.primary,
               decoration: const InputDecoration(
                 labelText: "備註",
                 labelStyle: TextStyle(color: Colors.black),
@@ -188,7 +187,9 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                   itemBuilder: (context, index) {
                     final isSelected = _selectionIndex == index;
                     return Card(
-                      color: isSelected ? AppColors.main : AppColors.disIcon,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -205,8 +206,11 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                         child: Center(
                           child: Icon(
                             appIcon(index.toString()),
-                            color:
-                                isSelected ? AppColors.font : AppColors.invist,
+                            color: isSelected
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                : Theme.of(context).colorScheme.surface,
                             size: MediaQuery.of(context).size.width * 0.1,
                           ),
                         ),

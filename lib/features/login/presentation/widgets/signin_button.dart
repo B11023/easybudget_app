@@ -1,5 +1,4 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:easybudget_app/core/auth/google_auth.dart';
 import 'package:easybudget_app/core/network/api_client.dart';
@@ -62,8 +61,8 @@ class _SignInAndLoadButtonState extends State<SignInAndLoadButton> {
         ElevatedButton(
           onPressed: _busy ? null : _run,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.main,
-            foregroundColor: AppColors.invist,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.surface,
           ),
           child: Text(
             _busy ? widget.labelWhenBusy : widget.labelWhenIdle,

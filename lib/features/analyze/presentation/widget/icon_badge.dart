@@ -12,7 +12,7 @@ class IconBadge extends StatelessWidget {
       height: 26,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.4),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Center(

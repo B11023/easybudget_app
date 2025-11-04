@@ -1,4 +1,3 @@
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/features/set/presentation/set_card.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,11 @@ class SetPage extends StatelessWidget {
             '更多',
             style: TextStyle(
                 fontSize: 24,
-                color: AppColors.font,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          backgroundColor: AppColors.main,
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

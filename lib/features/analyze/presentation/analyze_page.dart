@@ -1,13 +1,8 @@
-import 'dart:developer';
-
-import 'package:easybudget_app/common/theme/app_colors.dart';
-import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
 import 'package:easybudget_app/features/analyze/presentation/widget/transaction_pie_charts.dart';
 import 'package:easybudget_app/features/analyze/presentation/widget/transaction_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AnalyzePage extends StatefulWidget {
   const AnalyzePage({super.key});
@@ -34,7 +29,7 @@ class _AnalyzePageState extends State<AnalyzePage> {
                     '圖表分析',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.font,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                   ),
                   SizedBox(
@@ -43,12 +38,12 @@ class _AnalyzePageState extends State<AnalyzePage> {
                       //     Icon(
                       //       Icons.arrow_back_ios,
                       //       size: 25,
-                      //       color: AppColors.font,
+                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       //     ),
                       //     Icon(
                       //       Icons.calendar_month,
                       //       size: 35,
-                      //       color: AppColors.font,
+                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       //     ),
                       //     const SizedBox(
                       //       width: 5,
@@ -56,7 +51,7 @@ class _AnalyzePageState extends State<AnalyzePage> {
                       //     Icon(
                       //       Icons.arrow_forward_ios,
                       //       size: 25,
-                      //       color: AppColors.font,
+                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       //     )
                       //   ],
                       // ),

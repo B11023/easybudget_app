@@ -10,8 +10,8 @@
 - state mangement(待處理)
 - home page data點擊並修改
 - blance page 存錢筒修改
-- analyze page 
-- set page 顏色修改
+- analyze page (完成)
+- dark theme 黑暗模式
 
 
 ---  

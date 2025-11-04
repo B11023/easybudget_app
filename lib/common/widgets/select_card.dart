@@ -1,5 +1,4 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,9 @@ class _SelectCardState extends State<SelectCard> {
     final bool isActive = (provider.isSelected == widget.type);
 
     return Card(
-      color: isActive ? AppColors.main : AppColors.disIcon,
+      color: isActive
+          ? Theme.of(context).colorScheme.primary
+          : Theme.of(context).colorScheme.secondary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
@@ -39,7 +40,7 @@ class _SelectCardState extends State<SelectCard> {
           child: Text(
             widget.text,
             style: TextStyle(
-              color: AppColors.invist,
+              color: Theme.of(context).colorScheme.surface,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),

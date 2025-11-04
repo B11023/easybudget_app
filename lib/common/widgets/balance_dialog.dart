@@ -1,4 +1,3 @@
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -40,12 +39,12 @@ class BalanceDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: AppColors.lightMain,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               child: Text('圖表分析',
                   style: TextStyle(
                       fontSize: 18,
-                      color: AppColors.font,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 16),

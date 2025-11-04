@@ -1,7 +1,6 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/provider/load_status.dart';
 import 'package:easybudget_app/common/services/app_currency.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +61,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
-                  color: AppColors.lightMain,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListView.builder(
@@ -80,7 +79,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: AppColors.invist,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       child: ListTile(
                         leading: Icon(icons?[index]),
@@ -102,7 +101,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                 left: 20,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.main,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -110,7 +109,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                   child: Text(
                     label,
                     style: TextStyle(
-                      color: AppColors.lightFont,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 20,
                     ),
                   ),

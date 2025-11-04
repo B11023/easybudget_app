@@ -1,4 +1,3 @@
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BaseScaffold extends StatelessWidget {
@@ -18,11 +17,9 @@ class BaseScaffold extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
-
-        unselectedItemColor: AppColors.lightFont,
-        selectedItemColor: AppColors.font,
-        backgroundColor: AppColors.main,
-        
+        unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
+        selectedItemColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onTap: (index) {
           if (index == 0) {
             Navigator.pushReplacementNamed(context, "/");
@@ -35,13 +32,15 @@ class BaseScaffold extends StatelessWidget {
           }
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home,), label: "首頁"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: "首頁"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: "餘額"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.insert_chart), label: "分析"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "設定"),
+          BottomNavigationBarItem(icon: Icon(Icons.insert_chart), label: "分析"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "設定"),
         ],
       ),
     );

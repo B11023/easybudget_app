@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/features/balance/presentation/balance_dialog.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class _BalancePageState extends State<BalancePage> {
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height * 0.4,
-                    color: AppColors.main,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 60.0, top: 70.0),
@@ -41,8 +40,10 @@ class _BalancePageState extends State<BalancePage> {
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: _hideDoller
-                                ? AppColors.lightFont
-                                : AppColors.font,
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
                             size: 35.0,
                           ),
                           onPressed: () {
@@ -57,7 +58,9 @@ class _BalancePageState extends State<BalancePage> {
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.font,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -65,7 +68,9 @@ class _BalancePageState extends State<BalancePage> {
                           '資產 NT \$  ${_hideDoller ? "******" : doller}',
                           style: TextStyle(
                             fontSize: 24,
-                            color: AppColors.font,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                         ),
                       ],
@@ -77,7 +82,7 @@ class _BalancePageState extends State<BalancePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Card(
-                  color: AppColors.invist,
+                  color: Theme.of(context).colorScheme.surface,
                   elevation: 4,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
@@ -96,13 +101,18 @@ class _BalancePageState extends State<BalancePage> {
                         children: [
                           Icon(
                             Icons.savings_outlined,
-                            color: AppColors.font,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                             size: 50.0,
                           ),
                           Text(
                             '   存錢筒',
-                            style:
-                                TextStyle(color: AppColors.font, fontSize: 20),
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontSize: 20),
                           ),
                         ],
                       ),
