@@ -90,7 +90,13 @@ class _BalancePageState extends State<BalancePage> {
                       await showDialog<String>(
                         context: context,
                         useRootNavigator: true,
-                        builder: (ctx) => const BalanceDialog(),
+                        builder: (ctx) {
+                          //開啟時重製時間
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            context.read<EntryProvider>().resetToNow();
+                          });
+                          return const BalanceDialog();
+                        },
                       );
 
                       log("Card tapped!");

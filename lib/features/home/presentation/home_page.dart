@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/features/home/presentation/widget/add_transaction.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/features/home/presentation/widget/trainsaction_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +21,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<EntryProvider>().resetToNow();
+    });
   }
 
   void _scrollListener() {

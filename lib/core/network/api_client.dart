@@ -57,8 +57,14 @@ class ApiClient {
       } else {
         throw Exception('HTTP ${resp.statusCode}: ${resp.data}');
       }
-    } on DioException catch (e) {
-      throw Exception('Dio error: ${e.response?.data ?? e.message}');
+    } on DioException catch (e, st) {
+      log('Dio error type: ${e.type}');
+      log('Dio message: ${e.message}');
+      log('Dio response status: ${e.response?.statusCode}');
+      log('Dio response data: ${e.response?.data}');
+      log('Dio request data: ${e.requestOptions.data}');
+      log('Stacktrace: $st');
+      rethrow;
     }
   }
 }
