@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/features/home/presentation/widget/add_transaction.dart';
+import 'package:easybudget_app/common/widgets/month_switcher.dart';
+import 'package:easybudget_app/features/home/add_transaction.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
-import 'package:easybudget_app/features/home/presentation/widget/trainsaction_card.dart';
+import 'package:easybudget_app/features/home/trainsaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,11 +49,7 @@ class _HomePageState extends State<HomePage> {
       body: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: 40,
-          title: const Center(
-              child: SizedBox(
-            height: 0,
-          )),
+          toolbarHeight: 20,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -72,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 3,
                     child: Align(
                       alignment: Alignment.center,
                       child: Divider(
@@ -97,7 +94,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    flex: 4,
+                    flex: 3,
+                    child: Divider(
+                      thickness: 2,
+                      height: 120,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                  MonthSwitcher(),
+                  Expanded(
+                    flex: 1,
                     child: Divider(
                       thickness: 2,
                       height: 120,

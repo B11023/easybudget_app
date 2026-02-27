@@ -1,4 +1,6 @@
+import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:developer';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,6 +18,7 @@ class SetCard extends StatelessWidget {
   }
 
   Widget mySetCard(int index, BuildContext context) {
+    final provider = context.watch<EntryProvider>();
     switch (index) {
       case 0:
         return Card(
@@ -26,11 +29,12 @@ class SetCard extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              log("Settings card tapped!");
+              provider.toggleTheme();
+              log("theme mode card tapped!");
             },
             child: Center(
               child: Icon(
-                Icons.settings,
+                Icons.brightness_6,
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 size: MediaQuery.of(context).size.width * 0.15,
               ),

@@ -1,20 +1,24 @@
+import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/theme/app_theme.dart';
 import 'package:easybudget_app/features/analyze/presentation/analyze_page.dart';
-import 'package:easybudget_app/features/balance/presentation/balance_page.dart';
-import 'package:easybudget_app/features/home/presentation/home_page.dart';
-import 'package:easybudget_app/features/login/presentation/login_page.dart';
-import 'package:easybudget_app/features/set/presentation/set_page.dart';
+import 'package:easybudget_app/features/balance/balance_page.dart';
+import 'package:easybudget_app/features/home/home_page.dart';
+import 'package:easybudget_app/features/login/login_page.dart';
+import 'package:easybudget_app/features/set/set_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<EntryProvider>();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightMode(),
         darkTheme: darkMode(),
+        themeMode: provider.themeMode,
         initialRoute: '/login',
         onGenerateRoute: (RouteSettings settings) {
           late Widget page;

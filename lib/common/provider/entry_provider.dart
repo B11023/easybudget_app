@@ -6,12 +6,14 @@ import 'package:easybudget_app/common/models/entry.dart';
 import 'package:easybudget_app/common/provider/load_status.dart';
 import 'package:easybudget_app/core/network/api_client.dart';
 import 'package:easybudget_app/common/services/entry_query_service.dart';
+import 'package:flutter/material.dart';
 
 class EntryProvider extends ChangeNotifier {
   // ---- 狀態 ----
   List<Entry> _entries = [];
   LoadStatus _status = LoadStatus.idle;
   String? _error;
+  ThemeMode _themeMode = ThemeMode.system;
 
   //支出T 收入F
   bool _isSelected = true;
@@ -26,9 +28,12 @@ class EntryProvider extends ChangeNotifier {
 
   // ==== Getter（唯讀）====
 
+  ThemeMode? get themeMode => _themeMode;
+
   // ---- datetime ----
   int get year => _year;
   int get month => _month;
+  DateTime get newDateTime => DateTime(year, month, DateTime.now().day);
 
   // ---- fund ----
   UnmodifiableListView<Entry> get entries => UnmodifiableListView(_entries);
@@ -44,14 +49,15 @@ class EntryProvider extends ChangeNotifier {
   int get monthBalance => _monthBalance;
 
   List<Entry> get currentMonthEntries =>
-      EntryQueryService.entriesInCurrentMonth(_entries);
+      EntryQueryService.entriesInCurrentMonth(_entries, newDateTime);
 
   Map<DateTime, List<Entry>> get groupedByDay =>
-      EntryQueryService.groupCurrentMonthByDay(currentMonthEntries);
+      EntryQueryService.groupCurrentMonthByDay(
+          currentMonthEntries, newDateTime);
 
   Map<String, double> get sumByCategory =>
       EntryQueryService.sumCurrentMonthByCategory(
-          currentMonthEntries, isSelected);
+          currentMonthEntries, isSelected, newDateTime);
 
   // ==== 私有function ====
   //  (區間)支出收入total
@@ -91,19 +97,33 @@ class EntryProvider extends ChangeNotifier {
     _totalBalance = ti - te;
 
     // 本月（半開區間 + local）
-    final now = DateTime.now().toLocal();
-    final start = DateTime(now.year, now.month, 1);
-    final end = (now.month == 12)
-        ? DateTime(now.year + 1, 1, 1)
-        : DateTime(now.year, now.month + 1, 1);
+    final start = DateTime(year, month, 1);
+    final end =
+        (month == 12) ? DateTime(year + 1, 1, 1) : DateTime(year, month + 1, 1);
 
     final sum = _sumInRange(start, end);
     _monthIncome = sum['income']!;
     _monthExpend = sum['expend']!;
     _monthBalance = _monthIncome - _monthExpend;
+    notifyListeners();
   }
 
   // ==== 外部 API ====
+  //光暗模式
+  void toggleTheme() {
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final isSystemDark = brightness == Brightness.dark;
+
+    if (_themeMode == ThemeMode.system) {
+      _themeMode = isSystemDark ? ThemeMode.light : ThemeMode.dark;
+    } else {
+      _themeMode =
+          _themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    }
+    notifyListeners();
+  }
+
   //設定支出收入
   void setSelected(bool selected) {
     _isSelected = selected;
@@ -119,6 +139,30 @@ class EntryProvider extends ChangeNotifier {
   void nextYear() {
     _year++;
     notifyListeners();
+  }
+
+  void previousMonth() {
+    _month--;
+    _recomputeAggregates();
+    normalizeDate();
+    notifyListeners();
+  }
+
+  void nextMonth() {
+    _month++;
+    _recomputeAggregates();
+    normalizeDate();
+    notifyListeners();
+  }
+
+  void normalizeDate() {
+    if (_month < 1) {
+      _month = 12;
+      _year--;
+    } else if (_month > 12) {
+      _month = 1;
+      _year++;
+    }
   }
 
   void resetToNow() {

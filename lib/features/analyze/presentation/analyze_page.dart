@@ -1,5 +1,6 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/widgets/base_scaffold.dart';
+import 'package:easybudget_app/common/widgets/month_switcher.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
 import 'package:easybudget_app/features/analyze/presentation/widget/transaction_pie_charts.dart';
 import 'package:easybudget_app/features/analyze/presentation/widget/transaction_list.dart';
@@ -30,44 +31,14 @@ class _AnalyzePageState extends State<AnalyzePage> {
       body: Scaffold(
           appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(
-                      // width: 90.0,
-                      ),
-                  Text(
-                    '圖表分析',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
+              title: Center(
+                child: Text(
+                  '圖表分析',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
-                  SizedBox(
-                      // child: Row(
-                      //   children: [
-                      //     Icon(
-                      //       Icons.arrow_back_ios,
-                      //       size: 25,
-                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      //     ),
-                      //     Icon(
-                      //       Icons.calendar_month,
-                      //       size: 35,
-                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 5,
-                      //     ),
-                      //     Icon(
-                      //       Icons.arrow_forward_ios,
-                      //       size: 25,
-                      //       color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      //     )
-                      //   ],
-                      // ),
-                      )
-                ],
+                ),
               )),
           body: Column(
             children: [
@@ -81,6 +52,7 @@ class _AnalyzePageState extends State<AnalyzePage> {
                   SelectCard(text: '收入分析', type: false),
                 ],
               ),
+              MonthSwitcher(),
               TransactionPieChart(),
               const Divider(
                 color: Colors.black,

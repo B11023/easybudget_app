@@ -10,9 +10,8 @@ class EntryQueryService {
   }
 
   /// 當月所有資料（以裝置本地時區 DateTime 為準）
-  static List<Entry> entriesInCurrentMonth(List<Entry> entries,
-      {DateTime? now}) {
-    final anchor = now ?? DateTime.now();
+  static List<Entry> entriesInCurrentMonth(
+      List<Entry> entries, DateTime anchor) {
     final r = _monthRange(anchor);
     return entries
         .where((e) =>
@@ -21,10 +20,9 @@ class EntryQueryService {
   }
 
   /// 當月依「日」分組（yyyy-mm-dd -> 當天的 entries）
-  static Map<DateTime, List<Entry>> groupCurrentMonthByDay(List<Entry> entries,
-      {DateTime? now}) {
-    final start = DateTime.now();
-    final monthEntries = entriesInCurrentMonth(entries, now: start);
+  static Map<DateTime, List<Entry>> groupCurrentMonthByDay(
+      List<Entry> entries, DateTime anchor) {
+    final monthEntries = entriesInCurrentMonth(entries, anchor);
     final grouped = groupBy(
         monthEntries,
         (Entry e) =>
@@ -42,9 +40,8 @@ class EntryQueryService {
 
   /// 當月依「類別」加總
   static Map<String, double> sumCurrentMonthByCategory(
-      List<Entry> entries, bool isSelected,
-      {DateTime? now}) {
-    final monthEntries = entriesInCurrentMonth(entries, now: now);
+      List<Entry> entries, bool isSelected, DateTime anchor) {
+    final monthEntries = entriesInCurrentMonth(entries, anchor);
     final map = <String, double>{};
 
     String type = isSelected ? 'expend' : 'income';
