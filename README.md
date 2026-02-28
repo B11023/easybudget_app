@@ -42,6 +42,8 @@ EasyBudget 是一款以 Flutter 開發的跨平台記帳應用程式，整合 Go
 ## 核心架構設計
 
 ### 1. Feature-based Folder Structure
+
+```text
 lib/
 ├── common/
 │ ├── models/
