@@ -59,7 +59,7 @@ lib/
 ├── analyze/
 ├── login/
 └── set/
-```text
+```
 
 ### 2. 狀態管理分離
 
