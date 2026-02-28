@@ -18,116 +18,104 @@ class _BalancePageState extends State<BalancePage> {
   @override
   Widget build(BuildContext context) {
     dynamic doller = context.watch<EntryProvider>().totalBalance;
-    return BaseScaffold(
-        currentIndex: 1,
-        body: Scaffold(
-          body: Column(
+    return Scaffold(
+      body: Column(
+        children: [
+          Stack(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 60.0, top: 70.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            _hideDoller
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: _hideDoller
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                            size: 35.0,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _hideDoller = !_hideDoller; // 切換顯示/隱藏
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          '錢包餘額',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          '資產 NT \$  ${_hideDoller ? "******" : doller}',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Container(
+                height: MediaQuery.of(context).size.height * 0.4,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              const SizedBox(height: 50),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Card(
-                  color: Theme.of(context).colorScheme.surface,
-                  elevation: 4,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () async {
-                      await showDialog<String>(
-                        context: context,
-                        useRootNavigator: true,
-                        builder: (ctx) {
-                          //開啟時重製時間
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            context.read<EntryProvider>().resetToNow();
-                          });
-                          return const BalanceDialog();
-                        },
-                      );
-
-                      log("Card tapped!");
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.savings_outlined,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                            size: 50.0,
-                          ),
-                          Text(
-                            '   存錢筒',
-                            style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontSize: 20),
-                          ),
-                        ],
+              Padding(
+                padding: const EdgeInsets.only(left: 60.0, top: 70.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _hideDoller ? Icons.visibility_off : Icons.visibility,
+                        color: _hideDoller
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onPrimaryContainer,
+                        size: 35.0,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _hideDoller = !_hideDoller; // 切換顯示/隱藏
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      '錢包餘額',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    Text(
+                      '資產 NT \$  ${_hideDoller ? "******" : doller}',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ));
+          const SizedBox(height: 50),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Card(
+              color: Theme.of(context).colorScheme.surface,
+              elevation: 4,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () async {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    context.read<EntryProvider>().resetToNow();
+                  });
+                  await showDialog<String>(
+                    context: context,
+                    useRootNavigator: true,
+                    builder: (ctx) {
+                      //開啟時重製時間
+                      return const BalanceDialog();
+                    },
+                  );
+
+                  log("Card tapped!");
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.savings_outlined,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        size: 50.0,
+                      ),
+                      Text(
+                        '   存錢筒',
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                            fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

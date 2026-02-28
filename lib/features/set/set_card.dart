@@ -1,4 +1,5 @@
-import 'package:easybudget_app/common/provider/entry_provider.dart';
+import 'package:easybudget_app/common/provider/auth_provider.dart';
+import 'package:easybudget_app/common/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer';
@@ -18,7 +19,6 @@ class SetCard extends StatelessWidget {
   }
 
   Widget mySetCard(int index, BuildContext context) {
-    final provider = context.watch<EntryProvider>();
     switch (index) {
       case 0:
         return Card(
@@ -29,7 +29,7 @@ class SetCard extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              provider.toggleTheme();
+              context.read<ThemeProvider>().toggleTheme();
               log("theme mode card tapped!");
             },
             child: Center(
@@ -82,6 +82,28 @@ class SetCard extends StatelessWidget {
               child: Image.asset(
                 'assets/saugy.png',
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        );
+
+      case 2:
+        return Card(
+          color: Theme.of(context).colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () {
+              context.read<AuthProvider>().logout();
+              log("logout");
+            },
+            child: Center(
+              child: Icon(
+                Icons.logout_rounded,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                size: MediaQuery.of(context).size.width * 0.15,
               ),
             ),
           ),

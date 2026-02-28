@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:math' hide log;
 import 'package:easybudget_app/common/theme/app_icon.dart';
-import 'package:easybudget_app/features/analyze/models/category_stat_item.dart';
+import 'package:easybudget_app/features/analyze/category_stat_item.dart';
 
 class CategoryStatService {
   static List<CategoryStatItem> buildFromMonthlyMap(

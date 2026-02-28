@@ -1,48 +1,48 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class BaseScaffold extends StatelessWidget {
-  final Widget body;
-  final int currentIndex;
+// class BaseScaffold extends StatelessWidget {
+//   final Widget body;
+//   final int currentIndex;
 
-  const BaseScaffold({
-    super.key,
-    required this.body,
-    required this.currentIndex,
-  });
+//   const BaseScaffold({
+//     super.key,
+//     required this.body,
+//     required this.currentIndex,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: body,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
-        selectedItemColor: Theme.of(context).colorScheme.onPrimaryContainer,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pushReplacementNamed(context, "/");
-          } else if (index == 1) {
-            Navigator.pushReplacementNamed(context, "/balance");
-          } else if (index == 2) {
-            Navigator.pushReplacementNamed(context, "/analyze");
-          } else if (index == 3) {
-            Navigator.pushReplacementNamed(context, "/setting");
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: "首頁"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet), label: "餘額"),
-          BottomNavigationBarItem(icon: Icon(Icons.insert_chart), label: "分析"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "設定"),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: body,
+//       bottomNavigationBar: BottomNavigationBar(
+//         currentIndex: currentIndex,
+//         type: BottomNavigationBarType.fixed,
+//         unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
+//         selectedItemColor: Theme.of(context).colorScheme.onPrimaryContainer,
+//         backgroundColor: Theme.of(context).colorScheme.primary,
+//         onTap: (index) {
+//           if (index == 0) {
+//             Navigator.pushReplacementNamed(context, "/");
+//           } else if (index == 1) {
+//             Navigator.pushReplacementNamed(context, "/balance");
+//           } else if (index == 2) {
+//             Navigator.pushReplacementNamed(context, "/analyze");
+//           } else if (index == 3) {
+//             Navigator.pushReplacementNamed(context, "/setting");
+//           }
+//         },
+//         items: const [
+//           BottomNavigationBarItem(
+//               icon: Icon(
+//                 Icons.home,
+//               ),
+//               label: "首頁"),
+//           BottomNavigationBarItem(
+//               icon: Icon(Icons.account_balance_wallet), label: "餘額"),
+//           BottomNavigationBarItem(icon: Icon(Icons.insert_chart), label: "分析"),
+//           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "設定"),
+//         ],
+//       ),
+//     );
+//   }
+// }

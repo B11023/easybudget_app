@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:easybudget_app/common/models/entry.dart';
+import 'package:easybudget_app/common/models/entry_type.dart';
 
 class EntryQueryService {
   static ({DateTime start, DateTime end}) _monthRange(DateTime anchor) {
@@ -7,6 +8,43 @@ class EntryQueryService {
     final end = DateTime(anchor.year, anchor.month + 1, 1)
         .subtract(const Duration(milliseconds: 1));
     return (start: start, end: end);
+  }
+
+  //totalBalance
+  static int totalBalance(List<Entry> entries) {
+    int total = 0;
+
+    for (final e in entries) {
+      if (e.entryType == 'income') {
+        total += e.amount;
+      }
+
+      if (e.entryType == 'expend') {
+        total -= e.amount;
+      }
+    }
+
+    return total;
+  }
+
+  //當年所有月份balance
+  static Map<int, int> monthlyTotalForYear(
+    List<Entry> entries,
+    int year,
+  ) {
+    final result = {for (int i = 1; i <= 12; i++) i: 0};
+
+    for (final e in entries) {
+      if (e.createdAt.year != year) continue;
+      if (e.entryType == EntryType.income.name) {
+        result[e.createdAt.month] = result[e.createdAt.month]! + e.amount;
+      }
+      if (e.entryType == EntryType.expend.name) {
+        result[e.createdAt.month] = result[e.createdAt.month]! - e.amount;
+      }
+    }
+
+    return result;
   }
 
   /// 當月所有資料（以裝置本地時區 DateTime 為準）
@@ -40,11 +78,11 @@ class EntryQueryService {
 
   /// 當月依「類別」加總
   static Map<String, double> sumCurrentMonthByCategory(
-      List<Entry> entries, bool isSelected, DateTime anchor) {
+      List<Entry> entries, EntryType entryType, DateTime anchor) {
     final monthEntries = entriesInCurrentMonth(entries, anchor);
     final map = <String, double>{};
 
-    String type = isSelected ? 'expend' : 'income';
+    String type = entryType == EntryType.expend ? 'expend' : 'income';
 
     for (final e in monthEntries) {
       if (e.entryType != type) continue;

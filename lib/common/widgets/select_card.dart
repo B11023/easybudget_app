@@ -1,3 +1,4 @@
+import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +14,14 @@ class SelectCard extends StatefulWidget {
   State<SelectCard> createState() => _SelectCardState();
 
   final String text;
-  final bool type;
+  final EntryType type;
 }
 
 class _SelectCardState extends State<SelectCard> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<EntryProvider>();
-    final bool isActive = (provider.isSelected == widget.type);
+    final bool isActive = (provider.selectedType == widget.type);
 
     return Card(
       color: isActive
@@ -33,7 +34,7 @@ class _SelectCardState extends State<SelectCard> {
         borderRadius: BorderRadius.circular(12),
         splashFactory: NoSplash.splashFactory,
         onTap: () {
-          provider.setSelected(widget.type);
+          provider.setSelectedType(widget.type);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),

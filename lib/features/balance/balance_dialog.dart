@@ -15,15 +15,19 @@ class BalanceDialog extends StatelessWidget {
     //折線圖資料
     final provider = context.watch<EntryProvider>();
     final result = provider.getMonthlyTotalForYear();
-    final balance = result['balance']!;
     const int monthCount = 12;
 
     final List<FlSpot> spots = List.generate(
       monthCount,
-      (index) => FlSpot(
-        (index + 1).toDouble(),
-        balance[index].toDouble(),
-      ),
+      (index) {
+        final month = index + 1;
+        final value = result[month] ?? 0;
+
+        return FlSpot(
+          month.toDouble(),
+          value.toDouble(),
+        );
+      },
     );
 
     return Dialog(

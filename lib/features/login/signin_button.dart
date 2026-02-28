@@ -1,3 +1,4 @@
+import 'package:easybudget_app/common/provider/auth_provider.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:easybudget_app/core/auth/google_auth.dart';
@@ -41,11 +42,11 @@ class _SignInAndLoadButtonState extends State<SignInAndLoadButton> {
         setState(() => _error = '使用者取消或未取得登入憑證');
         return;
       }
-      await ApiClient.setBearer(idToken);
+      ApiClient.setBearer(idToken);
       if (!mounted) return;
       await entryProvider.loadEntries();
       if (!mounted) return;
-      Navigator.of(context).pushReplacementNamed("/");
+      context.read<AuthProvider>().login(idToken);
     } catch (e) {
       if (!mounted) return;
       setState(() => _error = '登入失敗：$e');

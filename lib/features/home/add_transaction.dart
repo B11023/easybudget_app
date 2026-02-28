@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:easybudget_app/common/models/entry.dart';
+import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
@@ -57,12 +58,12 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
                   children: [
                     SelectCard(
                       text: '支出',
-                      type: true,
+                      type: EntryType.expend,
                     ),
                     const SizedBox(width: 45.0),
                     SelectCard(
                       text: '收入',
-                      type: false,
+                      type: EntryType.income,
                     ),
                   ],
                 ),
@@ -82,7 +83,9 @@ class _AddTransactionWidget extends State<AddTransactionWidget> {
 
                     final newEntry = Entry(
                       category: _selectionIndex.toString(),
-                      entryType: provider.isSelected ? 'expend' : 'income',
+                      entryType: EntryType.expend == provider.selectedType
+                          ? 'expend'
+                          : 'income',
                       amount: int.tryParse(_amountCtrl.text) ?? 0,
                       note: _noteCtrl.text,
                       createdAt: DateTime.now(),

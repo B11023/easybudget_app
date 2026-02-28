@@ -1,4 +1,3 @@
-import 'package:easybudget_app/core/network/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -9,7 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
-  ApiClient.init();
   await GoogleSignIn.instance.initialize(
     serverClientId: EnvConfig.googleClientId,
   );

@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class TrainsactionCard extends StatefulWidget {
-  const TrainsactionCard({super.key});
+class TransactionCard extends StatefulWidget {
+  const TransactionCard({super.key});
   @override
-  State<TrainsactionCard> createState() => _TrainsactionCardState();
+  State<TransactionCard> createState() => _TransactionCardState();
 }
 
-class _TrainsactionCardState extends State<TrainsactionCard> {
+class _TransactionCardState extends State<TransactionCard> {
   @override
   Widget build(BuildContext context) {
     String label;
@@ -28,9 +28,11 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
     if (provider.status == LoadStatus.loading) {
       return const Center(child: CircularProgressIndicator());
     }
+
     if (provider.status == LoadStatus.error) {
       return Center(child: Text('載入失敗：${provider.error}'));
     }
+
     if (grouped.isEmpty) {
       return const Center(child: Text('本月沒有資料'));
     }

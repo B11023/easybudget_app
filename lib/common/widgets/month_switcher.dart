@@ -33,12 +33,17 @@ class MonthSwitcher extends StatelessWidget {
         SizedBox(
           width: 110,
           child: Center(
-            child: Text(
-              '${provider.year}年 ${provider.month}月',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18),
+            child: IntrinsicWidth(
+              child: Text(
+                '${provider.year}年 ${provider.month}月',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
+              ),
             ),
           ),
         ),

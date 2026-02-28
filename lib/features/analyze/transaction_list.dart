@@ -1,6 +1,6 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/features/analyze/models/category_stat_item.dart';
-import 'package:easybudget_app/features/analyze/presentation/service/category_stat_service.dart';
+import 'package:easybudget_app/features/analyze/category_stat_item.dart';
+import 'package:easybudget_app/features/analyze/category_stat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     final items = context.select<EntryProvider, List<CategoryStatItem>>((p) {
       return CategoryStatService.buildFromMonthlyMap(
-        p.sumByCategory,
+        p.expenseByCategory,
         topN: 4,
         othersLabel: '其他',
       );
