@@ -1,5 +1,7 @@
-import 'package:easybudget_app/common/theme/app_colors.dart';
+import 'package:easybudget_app/common/provider/auth_provider.dart';
+import 'package:easybudget_app/common/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:developer';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,19 +22,20 @@ class SetCard extends StatelessWidget {
     switch (index) {
       case 0:
         return Card(
-          color: AppColors.main,
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              log("Settings card tapped!");
+              context.read<ThemeProvider>().toggleTheme();
+              log("theme mode card tapped!");
             },
             child: Center(
               child: Icon(
-                Icons.settings,
-                color: AppColors.font,
+                Icons.brightness_6,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 size: MediaQuery.of(context).size.width * 0.15,
               ),
             ),
@@ -43,7 +46,7 @@ class SetCard extends StatelessWidget {
         //腸太郎
         return Card(
           clipBehavior: Clip.antiAlias,
-          color: AppColors.main,
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -79,6 +82,28 @@ class SetCard extends StatelessWidget {
               child: Image.asset(
                 'assets/saugy.png',
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        );
+
+      case 2:
+        return Card(
+          color: Theme.of(context).colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () {
+              context.read<AuthProvider>().logout();
+              log("logout");
+            },
+            child: Center(
+              child: Icon(
+                Icons.logout_rounded,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                size: MediaQuery.of(context).size.width * 0.15,
               ),
             ),
           ),

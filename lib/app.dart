@@ -1,47 +1,25 @@
-import 'package:easybudget_app/features/analyze/presentation/analyze_page.dart';
-import 'package:easybudget_app/features/balance/presentation/balance_page.dart';
-import 'package:easybudget_app/features/home/presentation/home_page.dart';
-import 'package:easybudget_app/features/login/presentation/login_page.dart';
-import 'package:easybudget_app/features/set/presentation/set_page.dart';
+import 'package:easybudget_app/common/provider/auth_provider.dart';
+import 'package:easybudget_app/main_tab_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:easybudget_app/common/provider/theme_provider.dart';
+import 'package:easybudget_app/common/theme/app_theme.dart';
+import 'package:easybudget_app/features/login/login_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    final authProvider = context.watch<AuthProvider>();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
-       onGenerateRoute: (RouteSettings settings) {
-        late Widget page;
-        switch (settings.name) {
-          case '/':
-            page = const HomePage();
-            break;
-          case '/balance':
-            page = const BalancePage();
-            break;
-          case '/analyze':
-            page = const AnalyzePage();
-            break;
-          case '/setting':
-            page = const SetPage();
-            break;
-          case '/login':
-            page = const LogInPage();
-            break;
-          default:
-            page = const HomePage();
-        }
-
-        return PageRouteBuilder(
-          settings: settings,
-          pageBuilder: (_, __, ___) => page,
-          transitionDuration: Duration.zero,              
-          reverseTransitionDuration: Duration.zero,      
-        );
-       }
+      theme: lightMode(),
+      darkTheme: darkMode(),
+      themeMode: themeProvider.themeMode,
+      home: authProvider.isLoggedIn ? const MainTabPage() : const LogInPage(),
     );
   }
 }

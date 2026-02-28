@@ -1,129 +1,133 @@
 import 'dart:collection';
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
-import 'package:easybudget_app/common/models/entry.dart';
+import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/load_status.dart';
+import 'package:flutter/material.dart';
+import 'package:easybudget_app/common/models/entry.dart';
 import 'package:easybudget_app/core/network/api_client.dart';
 import 'package:easybudget_app/common/services/entry_query_service.dart';
 
 class EntryProvider extends ChangeNotifier {
-  // ---- 狀態 ----
-  List<Entry> _entries = [];
   LoadStatus _status = LoadStatus.idle;
   String? _error;
-  //支出T 收入F
-  bool _isSelected = true;
 
-  // ---- 衍生統計（暫存）----
-  int _totalIncome = 0, _totalExpend = 0, _totalBalance = 0;
-  int _monthIncome = 0, _monthExpend = 0, _monthBalance = 0;
-
-  // ---- Getter（唯讀）----
-  UnmodifiableListView<Entry> get entries => UnmodifiableListView(_entries);
   LoadStatus get status => _status;
   String? get error => _error;
-  bool get isSelected => _isSelected;
 
-  int get totalIncome => _totalIncome;
-  int get totalExpend => _totalExpend;
-  int get totalBalance => _totalBalance;
-  int get monthIncome => _monthIncome;
-  int get monthExpend => _monthExpend;
-  int get monthBalance => _monthBalance;
+  List<Entry> _entries = [];
+  int _year = DateTime.now().year;
+  int _month = DateTime.now().month;
 
+  //確認支出或收入
+  EntryType _selectedType = EntryType.income;
+  EntryType get selectedType => _selectedType;
+  DateTime get _anchor => DateTime(_year, _month);
+
+  UnmodifiableListView<Entry> get entries => UnmodifiableListView(_entries);
+
+  int get year => _year;
+  int get month => _month;
+
+  void setSelectedType(EntryType type) {
+    _selectedType = type;
+    notifyListeners();
+  }
+
+  int get totalBalance => EntryQueryService.totalBalance(
+        _entries,
+      );
+
+  /// 當月所有資料
   List<Entry> get currentMonthEntries =>
-      EntryQueryService.entriesInCurrentMonth(_entries);
+      EntryQueryService.entriesInCurrentMonth(_entries, _anchor);
 
+  /// 當月收入
+  int get monthIncome => currentMonthEntries
+      .where((e) => e.entryType == 'income')
+      .fold(0, (sum, e) => sum + e.amount);
+
+  /// 當月支出
+  int get monthExpense => currentMonthEntries
+      .where((e) => e.entryType == 'expend')
+      .fold(0, (sum, e) => sum + e.amount);
+
+  /// 當月餘額
+  int get monthBalance => monthIncome - monthExpense;
+
+  /// 分組（給 UI 用）
   Map<DateTime, List<Entry>> get groupedByDay =>
-      EntryQueryService.groupCurrentMonthByDay(currentMonthEntries);
+      EntryQueryService.groupCurrentMonthByDay(_entries, _anchor);
 
-  Map<String, double> get sumByCategory =>
-      EntryQueryService.sumCurrentMonthByCategory(
-          currentMonthEntries, isSelected);
-
-  // ---- 私有：統一重算衍生統計 ----
-  void _recomputeAggregates() {
-    // 全部
-    int ti = 0, te = 0;
-    for (final e in _entries) {
-      if (e.entryType == 'income') {
-        ti += e.amount;
-      } else if (e.entryType == 'expend') {
-        te += e.amount;
-      }
-    }
-    _totalIncome = ti;
-    _totalExpend = te;
-    _totalBalance = ti - te;
-
-    // 本月（半開區間 + local）
-    final now = DateTime.now().toLocal();
-    final start = DateTime(now.year, now.month, 1);
-    final end = (now.month == 12)
-        ? DateTime(now.year + 1, 1, 1)
-        : DateTime(now.year, now.month + 1, 1);
-
-    int mi = 0, me = 0;
-    for (final e in _entries) {
-      final d = e.createdAt.toLocal();
-      if (!d.isBefore(start) && d.isBefore(end)) {
-        if (e.entryType == 'income') {
-          mi += e.amount;
-        } else if (e.entryType == 'expend') {
-          me += e.amount;
-        }
-      }
-    }
-    _monthIncome = mi;
-    _monthExpend = me;
-    _monthBalance = mi - me;
-  }
-
-  // ---- 外部 API ----
-  void setSelected(bool selected) {
-    _isSelected = selected;
-    notifyListeners();
-  }
-
-  void setEntries(List<Entry> newEntries) {
-    _entries = List.of(newEntries)
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    _recomputeAggregates();
-    notifyListeners();
+  Map<int, int> getMonthlyTotalForYear() {
+    return EntryQueryService.monthlyTotalForYear(
+      _entries,
+      _year,
+    );
   }
 
   Future<void> loadEntries() async {
     _status = LoadStatus.loading;
-    _error = null;
     notifyListeners();
+
     try {
-      final list = await ApiClient.fetchEntries();
-      _entries = List.of(list)
-        ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      _status = LoadStatus.loaded;
-      _recomputeAggregates();
-    } catch (e, st) {
+      _entries = await ApiClient.fetchEntries();
+      _status = LoadStatus.success;
+    } catch (e) {
       _error = e.toString();
       _status = LoadStatus.error;
-      if (kDebugMode) log('loadEntries error: $_error\n$st');
+    }
+
+    notifyListeners();
+  }
+
+  //判斷支出收入
+  Map<String, double> get expenseByCategory =>
+      EntryQueryService.sumCurrentMonthByCategory(
+          _entries, EntryType.expend, _anchor);
+
+  Map<String, double> get incomeByCategory =>
+      EntryQueryService.sumCurrentMonthByCategory(
+          _entries, EntryType.income, _anchor);
+
+  Future<void> addEntry(Entry entry) async {
+    final created = await ApiClient.createEntry(entry);
+    _entries.add(created);
+    notifyListeners();
+  }
+
+  void resetToNow() {
+    final now = DateTime.now();
+    _year = now.year;
+    _month = now.month;
+    notifyListeners();
+  }
+
+  void nextMonth() {
+    if (_month == 12) {
+      _year++;
+      _month = 1;
+    } else {
+      _month++;
     }
     notifyListeners();
   }
 
-  Future<bool> addEntry(Entry entry) async {
-    try {
-      final saved = await ApiClient.createEntry(entry);
-      _entries.add(saved);
-      _entries.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      _recomputeAggregates();
-      notifyListeners();
-      return true;
-    } catch (e, st) {
-      _error = e.toString();
-      if (kDebugMode) log('addEntry error: $_error\n$st');
-      notifyListeners();
-      return false;
+  void previousMonth() {
+    if (_month == 1) {
+      _year--;
+      _month = 12;
+    } else {
+      _month--;
     }
+    notifyListeners();
+  }
+
+  void previousYear() {
+    _year--;
+    notifyListeners();
+  }
+
+  void nextYear() {
+    _year++;
+    notifyListeners();
   }
 }

@@ -1,19 +1,18 @@
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/provider/load_status.dart';
 import 'package:easybudget_app/common/services/app_currency.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:easybudget_app/common/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class TrainsactionCard extends StatefulWidget {
-  const TrainsactionCard({super.key});
+class TransactionCard extends StatefulWidget {
+  const TransactionCard({super.key});
   @override
-  State<TrainsactionCard> createState() => _TrainsactionCardState();
+  State<TransactionCard> createState() => _TransactionCardState();
 }
 
-class _TrainsactionCardState extends State<TrainsactionCard> {
+class _TransactionCardState extends State<TransactionCard> {
   @override
   Widget build(BuildContext context) {
     String label;
@@ -29,9 +28,11 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
     if (provider.status == LoadStatus.loading) {
       return const Center(child: CircularProgressIndicator());
     }
+
     if (provider.status == LoadStatus.error) {
       return Center(child: Text('載入失敗：${provider.error}'));
     }
+
     if (grouped.isEmpty) {
       return const Center(child: Text('本月沒有資料'));
     }
@@ -62,7 +63,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
-                  color: AppColors.lightMain,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListView.builder(
@@ -80,7 +81,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: AppColors.invist,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       child: ListTile(
                         leading: Icon(icons?[index]),
@@ -102,7 +103,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                 left: 20,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.main,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -110,7 +111,7 @@ class _TrainsactionCardState extends State<TrainsactionCard> {
                   child: Text(
                     label,
                     style: TextStyle(
-                      color: AppColors.lightFont,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 20,
                     ),
                   ),

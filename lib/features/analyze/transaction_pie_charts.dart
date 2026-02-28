@@ -1,8 +1,7 @@
-import 'dart:developer';
-
+import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/theme/app_colors.dart';
-import 'package:easybudget_app/features/analyze/presentation/widget/icon_badge.dart';
+import 'package:easybudget_app/features/analyze/icon_badge.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,11 +21,11 @@ class PieChartState extends State<TransactionPieChart> {
     final sections = showingSections(context);
     final pieKey = ValueKey<int>(sections.length);
     final provider = context.watch<EntryProvider>();
-    final balance =
-        provider.isSelected ? provider.monthExpend : provider.monthIncome;
+    bool isExpense = provider.selectedType == EntryType.expend;
+    final balance = isExpense ? provider.monthExpense : provider.monthIncome;
 
     String totalCount =
-        provider.isSelected ? '月支出\nNT \$ -$balance' : '月收入\nNT \$ $balance';
+        isExpense ? '月支出\nNT \$ -$balance' : '月收入\nNT \$ $balance';
 
     return AspectRatio(
       aspectRatio: 1.3,
@@ -75,7 +74,7 @@ class PieChartState extends State<TransactionPieChart> {
   List<PieChartSectionData> showingSections(BuildContext context) {
     final provider = context.watch<EntryProvider>();
     final source = provider.currentMonthEntries;
-    final entryTypeFilter = provider.isSelected ? 'expend' : 'income';
+    final entryTypeFilter = provider.selectedType.name;
     final filtered = source
         .where((e) => e.entryType == entryTypeFilter && e.amount > 0)
         .toList();
@@ -133,7 +132,10 @@ class PieChartState extends State<TransactionPieChart> {
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
             color: Colors.white,
-            shadows: [Shadow(color: AppColors.black, blurRadius: 2)],
+            shadows: [
+              Shadow(
+                  color: Theme.of(context).colorScheme.onSurface, blurRadius: 2)
+            ],
           ),
           badgeWidget: IconBadge(categoryKey: label),
           badgePositionPercentageOffset: .98,

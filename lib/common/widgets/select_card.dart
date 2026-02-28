@@ -1,5 +1,5 @@
+import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,17 +14,19 @@ class SelectCard extends StatefulWidget {
   State<SelectCard> createState() => _SelectCardState();
 
   final String text;
-  final bool type;
+  final EntryType type;
 }
 
 class _SelectCardState extends State<SelectCard> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<EntryProvider>();
-    final bool isActive = (provider.isSelected == widget.type);
+    final bool isActive = (provider.selectedType == widget.type);
 
     return Card(
-      color: isActive ? AppColors.main : AppColors.disIcon,
+      color: isActive
+          ? Theme.of(context).colorScheme.primary
+          : Theme.of(context).colorScheme.secondary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
@@ -32,14 +34,14 @@ class _SelectCardState extends State<SelectCard> {
         borderRadius: BorderRadius.circular(12),
         splashFactory: NoSplash.splashFactory,
         onTap: () {
-          provider.setSelected(widget.type);
+          provider.setSelectedType(widget.type);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(
             widget.text,
             style: TextStyle(
-              color: AppColors.invist,
+              color: Theme.of(context).colorScheme.surface,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),

@@ -1,4 +1,4 @@
-import 'package:easybudget_app/features/login/presentation/widgets/signin_button.dart';
+import 'package:easybudget_app/features/login/signin_button.dart';
 import 'package:flutter/material.dart';
 
 class LogInPage extends StatefulWidget {
