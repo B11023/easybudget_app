@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/theme/app_colors.dart';

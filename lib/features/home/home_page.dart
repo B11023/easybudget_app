@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
 import 'package:easybudget_app/common/widgets/month_switcher.dart';
 import 'package:easybudget_app/features/home/add_transaction.dart';
-import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/features/home/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

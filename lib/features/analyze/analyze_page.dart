@@ -1,6 +1,5 @@
 import 'package:easybudget_app/common/models/entry_type.dart';
 import 'package:easybudget_app/common/provider/entry_provider.dart';
-import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/common/widgets/month_switcher.dart';
 import 'package:easybudget_app/common/widgets/select_card.dart';
 import 'package:easybudget_app/features/analyze/transaction_pie_charts.dart';

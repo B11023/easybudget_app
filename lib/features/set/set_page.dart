@@ -1,4 +1,3 @@
-import 'package:easybudget_app/common/widgets/base_scaffold.dart';
 import 'package:easybudget_app/features/set/set_card.dart';
 import 'package:flutter/material.dart';
 
